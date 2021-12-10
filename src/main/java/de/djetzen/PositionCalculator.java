@@ -33,10 +33,7 @@ public class PositionCalculator {
     }
 
     private Integer getXValueWithAim(Integer previousX, Tuple tuple) {
-        if (tuple.direction() == Direction.FORWARD) {
-            return previousX + tuple.value();
-        }
-        return previousX;
+        return getSimpleXValue(previousX, tuple);
     }
 
     private Integer getYValueWithAim(Integer previousY, Tuple tuple, int aim) {
