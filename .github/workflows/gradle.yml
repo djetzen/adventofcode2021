@@ -1,0 +1,55 @@
+---
+# This workflow will build a Java project with Gradle
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
+
+name: Java CI with Gradle
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  hadolint:
+    name: Hadolint
+    runs-on: ubuntu-20.04
+    container: pipelinecomponents/hadolint:0.10.0
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run hadolint
+        run: hadolint Dockerfile
+  jsonlint:
+    name: jsonLint
+    runs-on: ubuntu-20.04
+    container: pipelinecomponents/jsonlint:latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run jsonlint
+        run: find . -not -path './.git/*' -name '*.json' -type f -print0 | parallel --will-cite -k -0 -n1 jsonlint -q
+  yamllint:
+    name: yamllint
+    runs-on: ubuntu-20.04
+    container: pipelinecomponents/yamllint:latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run yamllint
+        run: yamllint -c config/yamllint/.yamllint .
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: 17
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Build with Gradle
+        run: ./gradlew build jacocoTestReport
+      - uses: codecov/codecov-action@v1
+        with:
+          file: build/reports/jacoco/test/jacocoTestReport.xml  # optional
+          verbose: true  # optional (default = false)
