@@ -13,7 +13,7 @@ class Day2Test {
     void the_example_for_the_first_part() throws IOException {
         var positionCalculator = new PositionCalculator();
 
-        Point point = positionCalculator.calculatePosition("src/test/resources/example/day2.txt");
+        Point point = positionCalculator.calculateSimplePosition("src/test/resources/example/day2.txt");
 
         var solution = point.getX() * point.getY();
 
@@ -26,7 +26,7 @@ class Day2Test {
     void the_real_input_for_the_first_part() throws IOException {
         var positionCalculator = new PositionCalculator();
 
-        Point point = positionCalculator.calculatePosition("src/test/resources/real/day2.txt");
+        Point point = positionCalculator.calculateSimplePosition("src/test/resources/real/day2.txt");
 
         var solution = point.getX() * point.getY();
 

@@ -13,7 +13,7 @@ public class FileReader {
     public static List<Tuple> getAllLinesAsSimpleDirection(String fileName) throws IOException {
         return Files.readAllLines(Paths.get(fileName))
                 .stream().map(s -> s.split(" "))
-                .map(s -> new Tuple(getDirection(s[0]), s[1]))
+                .map(s -> new Tuple(getDirection(s[0]), Integer.parseInt(s[1])))
                 .toList();
     }
 
