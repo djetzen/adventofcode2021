@@ -1,16 +1,7 @@
 package de.djetzen;
 
-public class Triple {
+public record Triple(int a, int b, int c) {
 
-    private final int a;
-    private final int b;
-    private final int c;
-
-    public Triple(int a, int b, int c) {
-        this.a = a;
-        this.b = b;
-        this.c = c;
-    }
 
     public int getSum() {
         return a + b + c;
