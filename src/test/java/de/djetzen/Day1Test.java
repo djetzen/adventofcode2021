@@ -12,7 +12,7 @@ class Day1Test {
     void the_example_input_for_first_part() throws IOException {
         var increaseCalculator = new IncreaseCalculator();
 
-        var solution = increaseCalculator.calculate("src/test/resources/example/day1_1.txt");
+        var solution = increaseCalculator.calculateFirstPart("src/test/resources/example/day1.txt");
 
         assertThat(solution).isEqualTo(7);
     }
@@ -22,8 +22,27 @@ class Day1Test {
     void the_real_input_for_first_part() throws IOException {
         var increaseCalculator = new IncreaseCalculator();
 
-        var solution = increaseCalculator.calculate("src/test/resources/real/day1_1.txt");
+        var solution = increaseCalculator.calculateFirstPart("src/test/resources/real/day1.txt");
 
         assertThat(solution).isEqualTo(1602);
+    }
+
+    @Test
+    void the_example_input_for_second_part() throws IOException {
+        var increaseCalculator = new IncreaseCalculator();
+
+        var solution = increaseCalculator.calculateSecondPart("src/test/resources/example/day1.txt");
+
+        assertThat(solution).isEqualTo(5);
+    }
+
+
+    @Test
+    void the_real_input_for_second_part() throws IOException {
+        var increaseCalculator = new IncreaseCalculator();
+
+        var solution = increaseCalculator.calculateSecondPart("src/test/resources/real/day1.txt");
+
+        assertThat(solution).isEqualTo(1633);
     }
 }
