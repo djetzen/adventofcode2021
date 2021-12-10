@@ -1,10 +1,10 @@
 package de.djetzen;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+
+import static de.djetzen.FileReader.getAllLinesAsInteger;
 
 public class IncreaseCalculator {
     public int calculateFirstPart(String fileName) throws IOException {
@@ -20,9 +20,6 @@ public class IncreaseCalculator {
         return calculateIncreases(tripleSums);
     }
 
-    private List<Integer> getAllLinesAsInteger(String fileName) throws IOException {
-        return Files.readAllLines(Paths.get(fileName)).stream().map(Integer::parseInt).toList();
-    }
 
     private int calculateIncreases(List<Integer> tripleSums) {
         var previousValue = tripleSums.get(0);
