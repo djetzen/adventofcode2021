@@ -1,4 +1,4 @@
-package de.djetzen;
+package de.djetzen.model;
 
 public record Triple(int a, int b, int c) {
 

@@ -1,5 +1,8 @@
 package de.djetzen;
 
+import de.djetzen.model.Direction;
+import de.djetzen.model.Tuple;
+
 import java.awt.*;
 import java.io.IOException;
 

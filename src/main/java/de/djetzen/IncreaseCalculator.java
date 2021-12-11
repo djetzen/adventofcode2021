@@ -1,5 +1,7 @@
 package de.djetzen;
 
+import de.djetzen.model.Triple;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
