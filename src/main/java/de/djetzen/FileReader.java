@@ -16,15 +16,15 @@ public class FileReader {
     }
 
     public static List<List<Integer>> getAllLinesVertically(String fileName) throws IOException {
-        List<String> allLines = Files.readAllLines(Paths.get(fileName));
+        var allLines = Files.readAllLines(Paths.get(fileName));
         var allLinesVertically = new ArrayList<List<Integer>>();
-        IntStream.range(0, allLines.get(0).length()).forEach(i -> allLinesVertically.add(new ArrayList<>()));
-        allLines.forEach(line -> {
-            for (int i = 0; i < line.length(); i++) {
-                allLinesVertically.get(i).add(Character.getNumericValue(line.charAt(i)));
-            }
-        });
 
+        IntStream.range(0, allLines.get(0).length())
+                .forEach(i -> {
+                            var valuesInColumn = allLines.stream().map(line -> Character.getNumericValue(line.charAt(i))).toList();
+                            allLinesVertically.add(valuesInColumn);
+                        }
+                );
         return allLinesVertically;
     }
 
