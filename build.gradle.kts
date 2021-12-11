@@ -1,6 +1,6 @@
 plugins {
     kotlin("jvm") version "1.6.0"
-    id "org.sonarqube" version "3.3"
+    id("org.sonarqube") version "3.3"
     jacoco
 }
 
@@ -32,8 +32,8 @@ tasks.jacocoTestReport {
 
 sonarqube {
     properties {
-        property "sonar.projectKey", "djetzen_adventofcode2021"
-        property "sonar.organization", "djetzen"
-        property "sonar.host.url", "https://sonarcloud.io"
+        property("sonar.projectKey", "djetzen_adventofcode2021")
+        property("sonar.organization", "djetzen")
+        property("sonar.host.url", "https://sonarcloud.io")
     }
 }

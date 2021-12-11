@@ -6,9 +6,9 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   pull_request:
-    branches: [main]
+    branches: [ main ]
 
 jobs:
 
@@ -24,7 +24,9 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build with Gradle
-        run: ./gradlew build jacocoTestReport
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: ./gradlew build sonarqube jacocoTestReport
       - uses: codecov/codecov-action@v2
         with:
           files: build/reports/jacoco/test/jacocoTestReport.xml  # optional
