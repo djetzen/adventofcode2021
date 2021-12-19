@@ -1,7 +1,7 @@
 package de.djetzen.model;
 
 public class BingoNumber {
-    private int number;
+    private final int number;
 
     private boolean drawn = false;
 
