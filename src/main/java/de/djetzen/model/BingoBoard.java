@@ -31,9 +31,9 @@ public class BingoBoard {
     }
 
     public boolean isWon() {
-        return checkDiagonalLines() ||
-                checkHorizontalLines() ||
-                checkVerticalLines();
+        return isDiagonalLineWon() ||
+                isAnyHorizontalLineWon() ||
+                isAnyVerticalLineWon();
     }
 
     public int getFinalScore() {
@@ -44,7 +44,7 @@ public class BingoBoard {
         return sum * lastDrawnNumber;
     }
 
-    private boolean checkVerticalLines() {
+    private boolean isAnyVerticalLineWon() {
         for (int i = 0; i < bingoNumbers[0].length; i++) {
             var lineIsDrawn = areAllNumbersDrawn(bingoNumbers[0][i], bingoNumbers[1][i], bingoNumbers[2][i], bingoNumbers[3][i], bingoNumbers[4][i]);
             if (lineIsDrawn) {
@@ -54,7 +54,7 @@ public class BingoBoard {
         return false;
     }
 
-    private boolean checkHorizontalLines() {
+    private boolean isAnyHorizontalLineWon() {
         for (BingoNumber[] bingoNumber : bingoNumbers) {
             var lineIsDrawn = areAllNumbersDrawn(bingoNumber[0], bingoNumber[1], bingoNumber[2], bingoNumber[3], bingoNumber[4]);
             if (lineIsDrawn) {
@@ -64,7 +64,7 @@ public class BingoBoard {
         return false;
     }
 
-    private boolean checkDiagonalLines() {
+    private boolean isDiagonalLineWon() {
         return areAllNumbersDrawn(bingoNumbers[0][0],
                 bingoNumbers[1][1],
                 bingoNumbers[2][2],
