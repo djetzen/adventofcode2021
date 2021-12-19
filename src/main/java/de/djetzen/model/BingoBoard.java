@@ -2,14 +2,15 @@ package de.djetzen.model;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class BingoBoard {
     private final BingoNumber[][] bingoNumbers;
     private int lastDrawnNumber;
 
     public BingoBoard(List<String> bingoLines) {
-        var collectedNumbers = bingoLines.stream().map(l -> l.trim().replace("  ", " ").split(" ")).map(this::getNumbersFromArray).collect(Collectors.toList());
+        var collectedNumbers = bingoLines.stream()
+                .map(l -> l.trim().split("\\s+"))
+                .map(this::getNumbersFromArray).toList();
         this.bingoNumbers = new BingoNumber[bingoLines.size()][bingoLines.size()];
         int i = 0;
         for (BingoNumber[] bingoLine : collectedNumbers) {
@@ -80,10 +81,10 @@ public class BingoBoard {
     }
 
     private BingoNumber[] getNumbersFromArray(String[] numbers) {
-        var bingoNumbers = new BingoNumber[numbers.length];
+        var bingonumbersFromParsedLine = new BingoNumber[numbers.length];
         for (int i = 0; i < numbers.length; i++) {
-            bingoNumbers[i] = new BingoNumber(Integer.parseInt(numbers[i]));
+            bingonumbersFromParsedLine[i] = new BingoNumber(Integer.parseInt(numbers[i]));
         }
-        return bingoNumbers;
+        return bingonumbersFromParsedLine;
     }
 }
