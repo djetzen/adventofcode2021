@@ -18,7 +18,7 @@ class Day4Test {
         var bingoInput = FileReader.getBingoInput("src/test/resources/example/day4.txt").trim();
         var bingoBoardLines = FileReader.getBingoBoards("src/test/resources/example/day4.txt");
 
-        BingoBoard wonBoard = createBingoBoardsAndDrawLines(bingoInput, bingoBoardLines);
+        BingoBoard wonBoard = createBingoBoardsAndFindFirstWinningBoard(bingoInput, bingoBoardLines);
 
         assertThat(wonBoard.getFinalScore()).isEqualTo(4512);
 
@@ -30,14 +30,23 @@ class Day4Test {
         var bingoInput = FileReader.getBingoInput("src/test/resources/real/day4.txt").trim();
         var bingoBoardLines = FileReader.getBingoBoards("src/test/resources/real/day4.txt");
 
-        BingoBoard wonBoard = createBingoBoardsAndDrawLines(bingoInput, bingoBoardLines);
+        BingoBoard wonBoard = createBingoBoardsAndFindFirstWinningBoard(bingoInput, bingoBoardLines);
+
+        assertThat(wonBoard.getFinalScore()).isEqualTo(6592);
+    }
+
+    @Test
+    void figure_out_which_board_wins_last() throws IOException {
+        var bingoInput = FileReader.getBingoInput("src/test/resources/real/day4.txt").trim();
+        var bingoBoardLines = FileReader.getBingoBoards("src/test/resources/real/day4.txt");
+
+        BingoBoard wonBoard = createBingoBoardsAndFindLastWinningBoard(bingoInput, bingoBoardLines);
 
         assertThat(wonBoard.getFinalScore()).isEqualTo(4512);
-
     }
 
     @NotNull
-    private BingoBoard createBingoBoardsAndDrawLines(String bingoInput, List<List<String>> bingoBoardLines) {
+    private BingoBoard createBingoBoardsAndFindFirstWinningBoard(String bingoInput, List<List<String>> bingoBoardLines) {
         var bingoBoards = new ArrayList<BingoBoard>();
         for (List<String> bingoBoardLine : bingoBoardLines) {
             bingoBoards.add(new BingoBoard(bingoBoardLine));
@@ -51,6 +60,26 @@ class Day4Test {
         }
         var wonBoard = bingoBoards.stream().filter(BingoBoard::isWon).findFirst().get();
         return wonBoard;
+    }
+
+    private BingoBoard createBingoBoardsAndFindLastWinningBoard(String bingoInput, List<List<String>> bingoBoardLines) {
+        var bingoBoards = new ArrayList<BingoBoard>();
+        for (List<String> bingoBoardLine : bingoBoardLines) {
+            bingoBoards.add(new BingoBoard(bingoBoardLine));
+        }
+
+        BingoBoard lastWinningBoard = null;
+
+        for (String input : bingoInput.split(",")) {
+            bingoBoards.forEach(b -> b.drawNumber(Integer.parseInt(input)));
+            if (bingoBoards.stream().filter(BingoBoard::isWon).count() == bingoBoards.size() - 1) {
+                lastWinningBoard = bingoBoards.stream().filter(b -> !b.isWon()).findFirst().get();
+            }
+            if (bingoBoards.stream().allMatch(BingoBoard::isWon)) {
+                return lastWinningBoard;
+            }
+        }
+        return null;
     }
 
     private BingoNumber[] createBingoRow(int first, int second, int third, int fourth, int fifth) {
