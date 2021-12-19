@@ -3,30 +3,34 @@ package de.djetzen;
 import de.djetzen.model.Triple;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import static de.djetzen.FileReader.getAllLinesAsInteger;
-
 public class IncreaseCalculator {
-    public int calculateFirstPart(String fileName) throws IOException {
-        List<Integer> allLines = getAllLinesAsInteger(fileName);
+    public int getSumOfDepthIncreases(String fileName) throws IOException {
+        var allLines = getAllLinesOfFileAsInteger(fileName);
 
         return calculateIncreases(allLines);
     }
 
-    public int calculateSecondPart(String fileName) throws IOException {
-        List<Integer> allLines = getAllLinesAsInteger(fileName);
-        List<Integer> tripleSums = createTriples(allLines).stream().map(Triple::getSum).toList();
+    public int getSumOfDepthIncreasesForThreeConsecutiveMeasurements(String fileName) throws IOException {
+        var allLines = getAllLinesOfFileAsInteger(fileName);
+        var tripleSums = createTriples(allLines).stream().map(Triple::getSum).toList();
 
         return calculateIncreases(tripleSums);
     }
 
+    private List<Integer> getAllLinesOfFileAsInteger(String fileName) throws IOException {
+        return Files.readAllLines(Paths.get(fileName)).stream().map(Integer::parseInt).toList();
+    }
 
-    private int calculateIncreases(List<Integer> tripleSums) {
-        var previousValue = tripleSums.get(0);
+
+    private int calculateIncreases(List<Integer> measurements) {
+        var previousValue = measurements.get(0);
         var increases = 0;
-        for (var tripleSum : tripleSums) {
+        for (var tripleSum : measurements) {
             if (tripleSum > previousValue) {
                 increases++;
             }
