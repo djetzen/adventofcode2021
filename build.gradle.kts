@@ -14,9 +14,9 @@ repositories {
 
 dependencies {
     testImplementation("org.assertj:assertj-core:3.24.2")
-    implementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
-    implementation("org.junit.jupiter:junit-jupiter:5.10.0")
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.10.0")
+    implementation("org.junit.jupiter:junit-jupiter-api:5.11.3")
+    implementation("org.junit.jupiter:junit-jupiter:5.11.3")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.11.3")
 }
 
 tasks.withType<Test> {
